@@ -44,7 +44,7 @@
         // listen() takes two arguments:
         // 1. A callback function that is invoked anytime a word is recognized.
         // 2. A configuration object with adjustable fields
-        let startTime = null;
+
 //         recognizer.listen(result => {
 //             const scores = result.scores; // probability of prediction for each class
 //             // render the probability scores per class
@@ -60,22 +60,15 @@
 //         });
         recognizer.listen(result => {
     const scores = result.scores;
-    const threshold = 0.8;
+    const threshold = 0.95;
 
     for (let i = 0; i < classLabels.length; i++) {
         const classPrediction = classLabels[i] + ": " + result.scores[i].toFixed(2);
         labelContainer.childNodes[i].innerHTML = classPrediction;
         if (scores[i] >= threshold) {
-            if (!startTime) {
-                startTime = Date.now();
-            } else if (Date.now() - startTime >= 500) {
-                // Trigger Zapier event here
-                alert(classLabels[i]);
-                console.log("Triggering Zapier event for:", classLabels[i]);
-                startTime = null;
-            }
-        } else {
-            startTime = null;
+            // Trigger Zapier event here
+            alert(classLabels[i]);
+            console.log("Triggering Zapier event for:", classLabels[i]);         
         }
     }
 }, {
