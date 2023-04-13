@@ -4,7 +4,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     </head><body>
-<h1>Teachable Machine Audio Model E</h1>
+<h1>Teachable Machine Audio Model F</h1>
 <button type="button" onclick="init()">Start</button>
 <div id="label-container"></div>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
@@ -60,7 +60,7 @@
 //         });
         recognizer.listen(result => {
     const scores = result.scores;
-    const threshold = 0.9;
+    const threshold = 0.8;
 
     for (let i = 0; i < classLabels.length; i++) {
         const classPrediction = classLabels[i] + ": " + result.scores[i].toFixed(2);
@@ -70,6 +70,7 @@
                 startTime = Date.now();
             } else if (Date.now() - startTime >= 500) {
                 // Trigger Zapier event here
+                alert(classLabels[i]);
                 console.log("Triggering Zapier event for:", classLabels[i]);
                 startTime = null;
             }
