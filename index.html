@@ -48,9 +48,29 @@
         const classPrediction = classLabels[i] + ": " + result.scores[i].toFixed(2);
         labelContainer.childNodes[i].innerHTML = classPrediction;
         if (scores[i] >= threshold && classLabels[i] != "Background Noise") {
-            // Trigger Zapier event here
-            alert(classLabels[i]);
-            console.log("Triggering Zapier event for:", classLabels[i]);         
+            //https://maker.ifttt.com/use/qoU6fXUzdeBHXla_ZNG0_
+
+const request = require('request');
+
+// Define the webhook URL
+const url = 'https://maker.ifttt.com/use/qoU6fXUzdeBHXla_ZNG0_';
+
+// Define the data to send to the webhook
+const data = {
+  alert: classLabels[i]
+};
+
+// Make a POST request to the webhook URL with the data
+request.post(url, { json: data }, (error, response, body) => {
+  if (error) {
+    console.error('Error sending data:', error);
+  } else {
+    console.log('Data sent:', body);
+  }
+});
+
+
+                   
         }
     }
 }, {
