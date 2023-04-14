@@ -75,15 +75,16 @@ document.addEventListener('visibilitychange', function () {
     }
     
 async function triggerIFTTT(event, key, label) {
-   const iftttURL = 'https://maker.ifttt.com/trigger/' + event + '/with/key/' + key;
+   const iftttURL = 'https://maker.ifttt.com/trigger/' + event + '/with/key/' + key+'?Value1='+label;
 //       const iftttURL = 'https://maker.ifttt.com/trigger/' + event + '/json/with/key/' + key;
     
     try {
         const response = await fetch(iftttURL, {
             method: 'POST',
-            body: label,
+//             body: label,
             headers: {
-                'Content-Type': 'application/json'
+//                 'Content-Type': 'application/json'
+                   'Content-Type': 'x-www-form-urlencoded'
             },
             mode: 'no-cors',
         });
