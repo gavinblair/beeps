@@ -61,7 +61,7 @@ document.addEventListener('visibilitychange', function () {
                     //https://maker.ifttt.com/use/qoU6fXUzdeBHXla_ZNG0_
 
                     const event = 'beep';
-                    const key = 'qoU6fXUzdeBHXla_ZNG0_';
+                    const key = 'd68rjbJK_Uw52ncu8UXfua';//'qoU6fXUzdeBHXla_ZNG0_';
                     triggerIFTTT(event, key, scores[i]);
                    
                 }
@@ -75,8 +75,10 @@ document.addEventListener('visibilitychange', function () {
     }
     
 async function triggerIFTTT(event, key, label) {
-   const iftttURL = 'https://maker.ifttt.com/trigger/' + event + '/with/key/' + key+'?Value1='+label;
+   const iftttURL = 'https://maker.ifttt.com/trigger/' + event + '/with/key/' + key+'?value1='+label;
 //       const iftttURL = 'https://maker.ifttt.com/trigger/' + event + '/json/with/key/' + key;
+    //https://maker.ifttt.com/use/d68rjbJK_Uw52ncu8UXfua
+
     
     try {
         const response = await fetch(iftttURL, {
