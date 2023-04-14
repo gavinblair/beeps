@@ -60,7 +60,7 @@ document.addEventListener('visibilitychange', function () {
                 if (scores[i] >= threshold && classLabels[i] != "Background Noise") {
                     //https://maker.ifttt.com/use/qoU6fXUzdeBHXla_ZNG0_
 
-                    const event = 'your_ifttt_event_name';
+                    const event = 'beep';
                     const key = 'qoU6fXUzdeBHXla_ZNG0_';
                     triggerIFTTT(event, key);
                    
