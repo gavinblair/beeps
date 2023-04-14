@@ -84,8 +84,11 @@ document.addEventListener('visibilitychange', function () {
     }
     
     function stop() {
-        if (isListening) {
+        if (recognizer && isListening) {
             recognizer.stopListening();
+        }
+        if(!recognizer) {
+            console.log("no recognizer. isListening="+isListening);
         }
     }
 
