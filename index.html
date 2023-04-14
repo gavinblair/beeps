@@ -83,7 +83,7 @@ async function triggerIFTTT(event, key, label) {
                 'Content-Type': 'application/json'
             },
             mode: 'no-cors',
-            body: JSON.stringify({JsonPayload: label})
+            body: JSON.stringify({value1: label, Value1: label+"b"})
         });
         if (response.ok) {
             alert("ifttt success");
