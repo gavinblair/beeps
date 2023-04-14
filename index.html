@@ -50,26 +50,9 @@
         if (scores[i] >= threshold && classLabels[i] != "Background Noise") {
             //https://maker.ifttt.com/use/qoU6fXUzdeBHXla_ZNG0_
 
-const request = require('request');
-
-// Define the webhook URL
-const url = 'https://maker.ifttt.com/use/qoU6fXUzdeBHXla_ZNG0_';
-
-// Define the data to send to the webhook
-const data = {
-  alert: classLabels[i]
-};
-
-// Make a POST request to the webhook URL with the data
-request.post(url, { json: data }, (error, response, body) => {
-  if (error) {
-    console.error('Error sending data:', error);
-  } else {
-    console.log('Data sent:', body);
-  }
-});
-
-
+const event = 'your_ifttt_event_name';
+const key = 'qoU6fXUzdeBHXla_ZNG0_';
+triggerIFTTT(event, key);
                    
         }
     }
@@ -83,4 +66,19 @@ request.post(url, { json: data }, (error, response, body) => {
         // Stop the recognition in 5 seconds.
         // setTimeout(() => recognizer.stopListening(), 5000);
     }
+
+async function triggerIFTTT(event, key) {
+    const iftttURL = `https://maker.ifttt.com/trigger/\${event}/with/key/\${key}`;
+    try {
+        const response = await fetch(iftttURL, {method: 'POST'});
+        if (response.ok) {
+            console.log('IFTTT triggered successfully');
+        } else {
+            console.error('Error triggering IFTTT:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error triggering IFTTT:', error);
+    }
+}
+
     </script></body></html>
