@@ -76,14 +76,13 @@ document.addEventListener('visibilitychange', function () {
     
 async function triggerIFTTT(event, key, label) {
     const iftttURL = 'https://maker.ifttt.com/trigger/' + event + '/with/key/' + key;
+    const formData = new FormData();
+    formData.append('label', label);
     try {
         const response = await fetch(iftttURL, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            body: formData,
             mode: 'no-cors',
-            body: JSON.stringify({value1: label})
         });
         if (response.ok) {
             console.log('IFTTT triggered successfully');
