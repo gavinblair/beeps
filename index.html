@@ -73,22 +73,29 @@ document.addEventListener('visibilitychange', function () {
             overlapFactor: 0.50
         });
     }
-
+    
 async function triggerIFTTT(event, key) {
     const iftttURL = `https://maker.ifttt.com/trigger/\${event}/with/key/\${key}`;
     try {
-        const response = await fetch(iftttURL, {method: 'POST', mode: 'no-cors'});
+        const response = await fetch(iftttURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
+        });
         if (response.ok) {
-alert("ifttt success");
+            alert("ifttt success");
             console.log('IFTTT triggered successfully');
         } else {
-alert("ifttt error");
+            alert("ifttt error");
             console.error('Error triggering IFTTT:', response.statusText);
         }
     } catch (error) {
-alert("ifttt ERROR");
+        alert("ifttt ERROR");
         console.error('Error triggering IFTTT:', error);
     }
 }
+
 setTimeout(function(){init();},500);
     </script></body></html>
