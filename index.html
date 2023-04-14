@@ -5,7 +5,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     </head><body>
 <h1>Teachable Machine Audio Model J</h1>
-<button type="button" onclick="init()">Start</button>
+<button type="button" onclick="stop()">Stop</button>
 <div id="label-container"></div>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands@0.4.0/dist/speech-commands.min.js"></script>
@@ -24,6 +24,9 @@ document.addEventListener('visibilitychange', function () {
 
     // the link to your model provided by Teachable Machine export panel
     const URL = "https://gavinblair.github.io/beeps/Beeps/";
+    
+    let isListening = false;
+
 
     async function createModel() {
         const checkpointURL = URL + "model.json"; // model topology
@@ -49,30 +52,39 @@ document.addEventListener('visibilitychange', function () {
             labelContainer.appendChild(document.createElement("div"));
         }
         recognizer.listen(result => {
-    const scores = result.scores;
-    const threshold = 0.98;
+            const scores = result.scores;
+            const threshold = 0.98;
 
-    for (let i = 0; i < classLabels.length; i++) {
-        const classPrediction = classLabels[i] + ": " + result.scores[i].toFixed(2);
-        labelContainer.childNodes[i].innerHTML = classPrediction;
-        if (scores[i] >= threshold && classLabels[i] != "Background Noise") {
-            //https://maker.ifttt.com/use/qoU6fXUzdeBHXla_ZNG0_
+            for (let i = 0; i < classLabels.length; i++) {
+                const classPrediction = classLabels[i] + ": " + result.scores[i].toFixed(2);
+                labelContainer.childNodes[i].innerHTML = classPrediction;
+                if (scores[i] >= threshold && classLabels[i] != "Background Noise") {
+                    //https://maker.ifttt.com/use/qoU6fXUzdeBHXla_ZNG0_
 
-const event = 'your_ifttt_event_name';
-const key = 'qoU6fXUzdeBHXla_ZNG0_';
-triggerIFTTT(event, key);
+                    const event = 'your_ifttt_event_name';
+                    const key = 'qoU6fXUzdeBHXla_ZNG0_';
+                    triggerIFTTT(event, key);
                    
-        }
-    }
-}, {
-    includeSpectrogram: true,
-    probabilityThreshold: 0.98,
-    invokeCallbackOnNoiseAndUnknown: true,
-    overlapFactor: 0.50
-});
+                }
+            }
+        }, {
+            includeSpectrogram: true,
+            probabilityThreshold: 0.98,
+            invokeCallbackOnNoiseAndUnknown: true,
+            overlapFactor: 0.50
+        });
 
-        // Stop the recognition in 5 seconds.
-        // setTimeout(() => recognizer.stopListening(), 5000);
+        // Stop the recognition when the stop function is called
+        recognizer.stopListening = function() {
+            recognizer.stop();
+            isListening = false;
+        };
+    }
+    
+    function stop() {
+        if (isListening) {
+            recognizer.stopListening();
+        }
     }
 
 async function triggerIFTTT(event, key) {
