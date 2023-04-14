@@ -4,7 +4,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     </head><body>
-<h1>Teachable Machine Audio Model I</h1>
+<h1>Teachable Machine Audio Model J</h1>
 <button type="button" onclick="init()">Start</button>
 <div id="label-container"></div>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
@@ -72,13 +72,16 @@ async function triggerIFTTT(event, key) {
     try {
         const response = await fetch(iftttURL, {method: 'POST'});
         if (response.ok) {
+alert("ifttt success");
             console.log('IFTTT triggered successfully');
         } else {
+alert("ifttt error");
             console.error('Error triggering IFTTT:', response.statusText);
         }
     } catch (error) {
+alert("ifttt ERROR");
         console.error('Error triggering IFTTT:', error);
     }
 }
-
+setTimeout(function(){init();},500);
     </script></body></html>
