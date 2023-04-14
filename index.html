@@ -73,6 +73,7 @@ document.addEventListener('visibilitychange', function () {
             invokeCallbackOnNoiseAndUnknown: true,
             overlapFactor: 0.50
         });
+        isListening = true;
 
         // Stop the recognition when the stop function is called
         recognizer.stopListening = function() {
