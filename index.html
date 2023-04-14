@@ -62,7 +62,7 @@ document.addEventListener('visibilitychange', function () {
 
                     const event = 'beep';
                     const key = 'qoU6fXUzdeBHXla_ZNG0_';
-                    triggerIFTTT(event, key);
+                    triggerIFTTT(event, key, scores[i]);
                    
                 }
             }
@@ -74,7 +74,7 @@ document.addEventListener('visibilitychange', function () {
         });
     }
     
-async function triggerIFTTT(event, key) {
+async function triggerIFTTT(event, key, label) {
     const iftttURL = 'https://maker.ifttt.com/trigger/' + event + '/with/key/' + key;
     try {
         const response = await fetch(iftttURL, {
@@ -83,7 +83,7 @@ async function triggerIFTTT(event, key) {
                 'Content-Type': 'application/json'
             },
             mode: 'no-cors',
-            body: JSON.stringify({})
+            body: JSON.stringify(label)
         });
         if (response.ok) {
             alert("ifttt success");
@@ -91,6 +91,7 @@ async function triggerIFTTT(event, key) {
         } else {
             alert("ifttt error");
             console.error('Error triggering IFTTT:', response.statusText);
+            console.log(response);
         }
     } catch (error) {
         alert("ifttt ERROR");
