@@ -86,7 +86,7 @@ async function triggerIFTTT(event, key, label) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            mode: 'no-cors',
+//            mode: 'no-cors',
         });
         if (response.ok) {
             console.log('IFTTT triggered successfully');
