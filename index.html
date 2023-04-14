@@ -76,12 +76,16 @@ document.addEventListener('visibilitychange', function () {
     
 async function triggerIFTTT(event, key, label) {
     const iftttURL = 'https://maker.ifttt.com/trigger/' + event + '/with/key/' + key;
-    const formData = new FormData();
-    formData.append('Value1', label);
+    const data = {
+        value1: label
+    };
     try {
         const response = await fetch(iftttURL, {
             method: 'POST',
-            body: formData,
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            },
             mode: 'no-cors',
         });
         if (response.ok) {
@@ -94,6 +98,7 @@ async function triggerIFTTT(event, key, label) {
         console.error('Error triggering IFTTT:', error);
     }
 }
+
 
 setTimeout(function(){init();},500);
     </script></body></html>
