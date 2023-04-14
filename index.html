@@ -77,7 +77,7 @@ document.addEventListener('visibilitychange', function () {
 async function triggerIFTTT(event, key, label) {
     const iftttURL = 'https://maker.ifttt.com/trigger/' + event + '/with/key/' + key;
     const data = {
-        "value1": label
+        "Value1": label
     };
     try {
         const response = await fetch(iftttURL, {
